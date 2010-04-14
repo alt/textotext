@@ -1,0 +1,94 @@
+% \iffalse
+%% File: textotext.dtx by Arno Trautmann, mail: arno dot trautmann at gmx dot de
+%<*driver>
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+\input docstrip.tex
+\askforoverwritefalse
+\preamble
+EXPERIMENTAL CODE
+
+Do not distribute this file without also distributing the
+source files specified above.
+
+Do not distribute a modified version of this file under the same name.
+\endpreamble
+\keepsilent
+\generate{\file{textotext.sty}{\from{textotext.dtx}{package}}}
+
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+\def\packageversion{14.\,04.\,2010v0.0.a}
+\ProvidesFile{textotext.sty}%
+  [\packageversion\ turn TeX code to plain text]
+\documentclass{gmdocc}
+\usepackage{
+  hyperref,
+  polyglossia,
+  xcolor
+}
+\hypersetup{
+  pdfborder= 0 0 0,
+  colorlinks=true,
+  linkcolor=deepblue,
+  filecolor=blue
+}
+\setmainlanguage{english}
+\setmainfont{TeX Gyre Pagella}
+\def\marginpartt{\scriptsize\ttfamily}
+
+\title{|textotext|}
+\author{Arno Trautmann\\ \href{mailto:arno.trautmann@gmx.de}{arno.trautmann@gmx.de}}
+\date{\packageversion}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+This is the documentation of the package |textotext|.
+\end{abstract}
+\tableofcontents
+\newpage
+\section{Usage}
+\label{sec:usage}
+\subsection{Package Options}
+\let\olditem\item
+\def\item[#1]{\olditem[\color{deepblue}#1]\ \newline }
+
+\begin{description}
+\item[tex] default
+\item[plain,text,textotex,active] aliases for \emph{do something!}
+\end{description}
+
+\section{Implementation}
+\DocInput{textotext.dtx}
+\end{document}
+%</driver>
+%
+%<*package>
+% \fi
+% First, initialization of the booleans and default values:
+% \begin{macrocode}
+\RequirePackage{ifthen}
+\newboolean{TTT@active}
+%
+\setboolean{TTT@active}{false}
+% 
+% Definition of the package options and processing by |xkeyval| and evaluation:
+\RequirePackage{xkeyval}
+% General options:
+\DeclareOptionX{tex}{\setboolean{TTT@active{false}}
+\DeclareOptionX{active}{\setboolean{TTT@active{true}}
+\DeclareOptionX{textotext}{\setboolean{TTT@active{true}}
+\DeclareOptionX{plain}{\setboolean{TTT@active{true}}
+\DeclareOptionX{text}{\setboolean{TTT@active{true}}
+% Font-dependent options:
+\ProcessOptionsX
+% \end{macrocode}
+% \subsection{Page Layout}
+% \Finale
+% \endinput
